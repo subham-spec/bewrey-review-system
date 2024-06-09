@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, MenuItem, Button, Grid, Typography } from '@mui/material';
+import './CascadingAutocomplete.css'
 
 const CascadingAutocomplete = ({ onSearch }) => {
     const [city, setCity] = useState('');
@@ -57,31 +58,37 @@ const CascadingAutocomplete = ({ onSearch }) => {
                         fullWidth
                         label="City"
                         value={city}
-                        SelectProps={{ MenuProps }}
                         onChange={(e) => setCity(e.target.value)}
                         variant="outlined"
                         InputLabelProps={{ shrink: true }}
                         autoComplete="off"
                     />
                     {citySuggestions.length > 0 && (
-
-                        citySuggestions.map((suggestion, index) => (
-                            <MenuItem key={index} onClick={() => setCity(suggestion)}>
-                                {suggestion}
-                            </MenuItem>
-                        ))
-
+                        <div className="suggestions">
+                            {citySuggestions.map((suggestion, index) => (
+                                <div
+                                    key={index}
+                                    className="suggestion-item"
+                                    onClick={() => setCity(suggestion)}
+                                >
+                                    {suggestion}
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <TextField
+                        className='textfield'
                         fullWidth
                         label="Type"
                         value={type}
+                        SelectProps={{MenuProps}}
                         onChange={(e) => setType(e.target.value)}
                         variant="outlined"
                         InputLabelProps={{ shrink: true }}
                         disabled={!city}
+                        autoComplete='off'
                     />
                     {typeSuggestions.length > 0 && (
                         <div>
@@ -95,6 +102,7 @@ const CascadingAutocomplete = ({ onSearch }) => {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <TextField
+                        className='textfield'
                         fullWidth
                         label="Name"
                         value={name}

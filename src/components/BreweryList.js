@@ -1,36 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Grid, Card, CardContent, Typography, Link as MuiLink, CardActionArea } from '@mui/material';
+import './BreweryList.css';
+import {Link} from 'react-router-dom';
 
 const BreweryList = ({ breweries }) => {
     return (
-        <Grid container spacing={3}>
-            {breweries.map((brewery) => (
-                <Grid key={brewery.id} item xs={12} sm={6} md={4}>
-                    <Card elevation={4}>
-                        <CardActionArea to={`/brewery/${brewery.id}`} style={{ textDecoration: 'none', color: 'inherit' }} target="_blank">
-                            <CardContent>
-                                <Typography variant="h5" component="h2">
-                                    <Link to={`/brewery/${brewery.id}`} style={{ textDecoration: 'none', color: 'inherit' }} target="_blank">
-                                        {brewery.name}
-                                    </Link>
-                                </Typography>
-                                <Typography variant="body1" color="textSecondary" gutterBottom>
-                                    {brewery.street}, {brewery.city}, {brewery.state}
-                                </Typography>
-                                <Typography variant="body1" color="textSecondary">
-                                    Phone: {brewery.phone}
-                                </Typography>
-                                <Typography variant="body1" color="textSecondary">
-                                    Website: <MuiLink href={brewery.website_url} target="_blank" rel="noopener noreferrer">{brewery.website_url}</MuiLink>
-                                </Typography>
-                                
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
+        <div className='brewery_list_container'>
+            {breweries.map((item) => (
+                <div className='brewery_item' 
+                key={item.id}>
+                    <h3>
+                        <Link to={`/brewery/${item.id}`}>{item.name}</Link>
+                    </h3>
+                    <p>{item.street}</p>
+                    <p>{item.phone}</p>
+                    <p>{item.city}, {item.state}</p>
+                    <p>Website: <a href={item.website_url} target="_blank" rel="noopener noreferrer">{item.website_url}</a></p>
+                </div>
             ))}
-        </Grid>
+        </div>
     );
 };
 

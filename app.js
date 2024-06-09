@@ -49,6 +49,9 @@ const beerSchema = new mongoose.Schema({
     ratingCount: {
         type: Number,
         required: true
+    },
+    text_rating: {
+        type: Array
     }
 });
 
@@ -100,8 +103,8 @@ app.post("/register", async (req, res) => {
     }
 });
 
-app.post("/ratingchange", async (req, res) => {
-    const {id, rating} = req.body;
+app.post("/setRating", async (req, res) => {
+    const {id, rating, text_rating} = req.body;
 
     try {
         console.log("Check for id exists");
@@ -114,7 +117,11 @@ app.post("/ratingchange", async (req, res) => {
             // Updating the existing value
             await beer_data.findOneAndUpdate(
                 { id: id },
-                { rating: new_rating, ratingCount: new_ratingCount }
+                { 
+                    rating: new_rating, 
+                    ratingCount: new_ratingCount,
+
+                }
             );
             res.json("updated")
 

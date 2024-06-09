@@ -1,8 +1,8 @@
-// src/components/Home.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import BreweryList from './BreweryList';
 import CascadingAutocomplete from './CascadingAutocomplete';
+import './LandingPage.css';
 // import Pagination from './Pagination';
 
 const LandingPage = () => {
@@ -15,7 +15,7 @@ const LandingPage = () => {
     const breweriesPerPage = 10;
 
     const handleSearch = async ({ city, type, name }) => {
-        console.log(city, type, name)
+        console.log(city, type, name);
         setSearchParams({ city, type, name });
         await fetchBreweries({ city, type, name, page: 1 });
     };
@@ -47,11 +47,10 @@ const LandingPage = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <CascadingAutocomplete onSearch={handleSearch} />
             {error && <p>{error}</p>}
-            <BreweryList breweries={breweries} />
-            {/* <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} /> */}
+            <BreweryList breweries={breweries} />            
         </div>
     );
 };
